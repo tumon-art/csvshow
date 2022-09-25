@@ -44,7 +44,6 @@ const Home: NextPage = () => {
 
   if (array) headerKeys = Object.keys(Object.assign({}, ...array));
 
-  console.log(Object.values(array[0]));
   return (
     <div>
       <Head>
@@ -63,11 +62,11 @@ const Home: NextPage = () => {
             onChange={handleOnChange}
           />
           <button type="submit">IMPORT CSV</button>
+        </form>
 
-          <br />
-
+        <section className={styles.tableHold}>
           {headerKeys && (
-            <table>
+            <table className={styles.table}>
               <thead>
                 <tr key={"header"}>
                   {headerKeys.map((key: string) => (
@@ -87,7 +86,7 @@ const Home: NextPage = () => {
               </tbody>
             </table>
           )}
-        </form>
+        </section>
       </div>
     </div>
   );

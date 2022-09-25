@@ -1,0 +1,26 @@
+.tableHold {
+  display: flex;
+  justify-content: center;
+  margin: 3em 0 0 0;
+}
+.table {
+  border-collapse: collapse;
+  color: white;
+  border-radius: 20px 20px;
+  border: 20px solid #d31d6942;
+  background: #911860;
+  box-shadow: 0 0 420px 20px #eb1b71;
+}
+
+.table th {
+  font-size: larger;
+  border-bottom: 3px solid;
+}
+
+.table * {
+  padding: 10px 30px;
+}
+
+.table tr:nth-child(even) {
+  background-color: #991a66;
+}
