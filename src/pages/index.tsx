@@ -3,9 +3,18 @@ import Head from "next/head";
 import React from "react";
 import styles from "../styles/Home.module.css";
 
+interface ArrayType {
+  nisn: string;
+  nama: string;
+  tempat: string;
+  tenggal: string;
+  pekern: string;
+  telepon: string;
+  ketgan: string;
+}
 const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
-  const [array, setArray] = React.useState<string[] | any>();
+  const [array, setArray] = React.useState<ArrayType[] | any>();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
@@ -14,7 +23,7 @@ const Home: NextPage = () => {
   const csvFileToArray = (string: string) => {
     var csvHeader = string.slice(0, string.indexOf("\n")).split(",");
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-
+    csvRows.pop();
     const array = csvRows.map((i) => {
       const values = i.split(",");
       const obj = csvHeader.reduce((object: string | any, header, index) => {
@@ -24,6 +33,12 @@ const Home: NextPage = () => {
       return obj;
     });
     setArray(array);
+  };
+
+  const onDelete = (id: string) => {
+    const oldArray = array;
+    const newArray = oldArray.filter((arr: ArrayType) => id !== arr.nisn);
+    setArray(newArray);
   };
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +58,7 @@ const Home: NextPage = () => {
   let headerKeys: [] | any;
 
   if (array) headerKeys = Object.keys(Object.assign({}, ...array));
-
+  console.log(array);
   return (
     <div>
       <Head>
@@ -54,7 +69,7 @@ const Home: NextPage = () => {
 
       <div style={{ textAlign: "center" }}>
         <h1>REACTJS CSV IMPORT EXAMPLE </h1>
-        <form onSubmit={handleOnSubmit}>
+        <form className={styles.form} onSubmit={handleOnSubmit}>
           <input
             id={"csvFileInput"}
             type={"file"}
@@ -65,12 +80,12 @@ const Home: NextPage = () => {
         </form>
 
         <section className={styles.tableHold}>
-          {headerKeys && (
+          {headerKeys ? (
             <table className={styles.table}>
               <thead>
                 <tr key={"header"}>
-                  {headerKeys.map((key: string) => (
-                    <th>{key}</th>
+                  {headerKeys.map((key: string, i: any) => (
+                    <th key={i}>{key}</th>
                   ))}
                 </tr>
               </thead>
@@ -78,13 +93,17 @@ const Home: NextPage = () => {
               <tbody>
                 {array.map((item: {} | any) => (
                   <tr key={item.id}>
-                    {Object.values(item).map((val: string | any) => (
-                      <td>{val}</td>
+                    {Object.values(item).map((val: string | any, i: any) => (
+                      <td key={i}> {val} </td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
+          ) : (
+            <div className={styles.selectText}>
+              <h1> Select CSV FILE and Import!</h1>
+            </div>
           )}
         </section>
       </div>
