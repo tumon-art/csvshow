@@ -22,7 +22,7 @@
 .table {
   border-collapse: collapse;
   color: white;
-  border: 20px solid #d31d6942;
+  /* border: 20px solid #d31d6942; */
   background: #911860;
   box-shadow: 0 0 420px 20px #eb1b71;
 }
@@ -38,4 +38,27 @@
 
 .table tr:nth-child(even) {
   background-color: #991a66;
+}
+
+.table tbody tr {
+  position: relative;
+}
+
+.table tr:hover > .divD {
+  opacity: 1;
+}
+
+.divD {
+  opacity: 0;
+  position: absolute;
+  content: "Hello";
+  background: #d31d6942;
+  height: 40px;
+  width: 40px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.4s;
+  cursor: pointer;
 }

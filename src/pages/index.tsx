@@ -15,6 +15,7 @@ interface ArrayType {
 const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
   const [array, setArray] = React.useState<ArrayType[] | any>();
+  const [expoArr, setExpoArr] = React.useState<[] | any>([]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
@@ -58,7 +59,28 @@ const Home: NextPage = () => {
   let headerKeys: [] | any;
 
   if (array) headerKeys = Object.keys(Object.assign({}, ...array));
-  console.log(array);
+
+  // ==== EXPORTING
+  // get obj name
+  const exportCsv = () => {
+    let exportArr: any = [];
+    for (var value in array[0]) {
+      exportArr.push(value);
+      // console.log("h");
+      // setExpoArr([...value]);
+    }
+    console.log(exportArr);
+
+    setExpoArr((p: any) => [...p, exportArr]);
+    for (let i = 0; i < array.length; i++) {
+      // get values
+      let objKeys = Object.keys(array[i]);
+      objKeys.forEach((key) => {
+        // console.log(array[i][key]);
+      });
+    }
+    console.log("expoArr", expoArr);
+  };
   return (
     <div>
       <Head>
@@ -77,6 +99,7 @@ const Home: NextPage = () => {
             onChange={handleOnChange}
           />
           <button type="submit">IMPORT CSV</button>
+          <button onClick={exportCsv}> Expost </button>
         </form>
 
         <section className={styles.tableHold}>
@@ -91,11 +114,18 @@ const Home: NextPage = () => {
               </thead>
 
               <tbody>
-                {array.map((item: {} | any) => (
-                  <tr key={item.id}>
+                {array.map((item: ArrayType) => (
+                  <tr key={item.nisn}>
                     {Object.values(item).map((val: string | any, i: any) => (
                       <td key={i}> {val} </td>
                     ))}
+                    <div
+                      onClick={() => onDelete(item.nisn)}
+                      className={styles.divD}
+                    >
+                      {" "}
+                      D{" "}
+                    </div>
                   </tr>
                 ))}
               </tbody>
