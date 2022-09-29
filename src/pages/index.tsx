@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
+import toast from "react-hot-toast";
 import styles from "../styles/Home.module.css";
 
 interface ArrayType {
@@ -16,6 +17,12 @@ const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
   const [array, setArray] = React.useState<ArrayType[] | any>();
   const [expoArr, setExpoArr] = React.useState<[] | any>([]);
+
+  console.log("file", file);
+  console.log("array", array);
+  console.log("expoArr", expoArr);
+
+  console.log(file.type);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
@@ -48,6 +55,10 @@ const Home: NextPage = () => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (file.type !== "text/csv") {
+      return toast.error("Select The CSV File!");
+    }
+
     const fileReader = new FileReader();
     fileReader.readAsText(file);
 
@@ -65,8 +76,10 @@ const Home: NextPage = () => {
 
   // --- EXPORTING
   const exportCsv = () => {
+    if (array == "undefined") {
+      return toast.error("Sorry, Their is no CSV File!");
+    }
     let exportArr: any = [];
-
     // --- PUSH HEAD
     for (var value in array[0]) {
       exportArr.push(value);
@@ -82,7 +95,6 @@ const Home: NextPage = () => {
     setExpoArr((p: any) => [...p, exportArr]);
   };
 
-  console.log("expoArr", expoArr);
   return (
     <div>
       <Head>
@@ -101,7 +113,7 @@ const Home: NextPage = () => {
             onChange={handleOnChange}
           />
           <button type="submit">IMPORT CSV</button>
-          <button onClick={exportCsv}> Expost </button>
+          <button onClick={exportCsv}> Export </button>
         </form>
 
         <section className={styles.tableHold}>
