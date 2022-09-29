@@ -21,6 +21,7 @@ const Home: NextPage = () => {
     setFile(e.target.files![0]);
   };
 
+  // --- IMPORT BY SELECTING FILE ---
   const csvFileToArray = (string: string) => {
     var csvHeader = string.slice(0, string.indexOf("\n")).split(",");
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
@@ -36,12 +37,14 @@ const Home: NextPage = () => {
     setArray(array);
   };
 
+  // --- DELETE AN ARRAY ---
   const onDelete = (id: string) => {
     const oldArray = array;
     const newArray = oldArray.filter((arr: ArrayType) => id !== arr.nisn);
     setArray(newArray);
   };
 
+  // --- ON SUBMIT / IMPORT BTN ---
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -56,31 +59,30 @@ const Home: NextPage = () => {
     }
   };
 
+  // --- HEADERS FOR TABLE ---
   let headerKeys: [] | any;
-
   if (array) headerKeys = Object.keys(Object.assign({}, ...array));
 
-  // ==== EXPORTING
-  // get obj name
+  // --- EXPORTING
   const exportCsv = () => {
     let exportArr: any = [];
+
+    // --- PUSH HEAD
     for (var value in array[0]) {
       exportArr.push(value);
-      // console.log("h");
-      // setExpoArr([...value]);
     }
-    console.log(exportArr);
 
-    setExpoArr((p: any) => [...p, exportArr]);
+    // --- PUSH VALUES
     for (let i = 0; i < array.length; i++) {
-      // get values
-      let objKeys = Object.keys(array[i]);
-      objKeys.forEach((key) => {
-        // console.log(array[i][key]);
-      });
+      let objValues = Object.values(array[i]);
+      exportArr.push(objValues);
     }
-    console.log("expoArr", expoArr);
+
+    // --- ADD ALL IN A STATE
+    setExpoArr((p: any) => [...p, exportArr]);
   };
+
+  console.log("expoArr", expoArr);
   return (
     <div>
       <Head>
