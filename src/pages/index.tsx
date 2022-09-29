@@ -18,12 +18,6 @@ const Home: NextPage = () => {
   const [array, setArray] = React.useState<ArrayType[] | any>();
   const [expoArr, setExpoArr] = React.useState<[] | any>([]);
 
-  console.log("file", file);
-  console.log("array", array);
-  console.log("expoArr", expoArr);
-
-  console.log(file.type);
-
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
   };
@@ -59,6 +53,7 @@ const Home: NextPage = () => {
       return toast.error("Select The CSV File!");
     }
 
+    // --- READ CSV FILE
     const fileReader = new FileReader();
     fileReader.readAsText(file);
 
@@ -76,9 +71,10 @@ const Home: NextPage = () => {
 
   // --- EXPORTING
   const exportCsv = () => {
-    if (array == "undefined") {
+    if (array == undefined) {
       return toast.error("Sorry, Their is no CSV File!");
     }
+
     let exportArr: any = [];
     // --- PUSH HEAD
     for (var value in array[0]) {
@@ -133,13 +129,12 @@ const Home: NextPage = () => {
                     {Object.values(item).map((val: string | any, i: any) => (
                       <td key={i}> {val} </td>
                     ))}
-                    <div
+                    <span
                       onClick={() => onDelete(item.nisn)}
                       className={styles.divD}
                     >
-                      {" "}
-                      D{" "}
-                    </div>
+                      D
+                    </span>
                   </tr>
                 ))}
               </tbody>
