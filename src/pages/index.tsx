@@ -46,7 +46,9 @@ const Home: NextPage = () => {
   };
 
   // --- ON SUBMIT / IMPORT BTN ---
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     if (file.type !== "text/csv") {
@@ -71,6 +73,7 @@ const Home: NextPage = () => {
 
   // --- EXPORTING
   const exportCsv = () => {
+    console.log(array);
     if (array == undefined) {
       return toast.error("Sorry, Their is no CSV File!");
     }
@@ -101,15 +104,16 @@ const Home: NextPage = () => {
 
       <div style={{ textAlign: "center" }}>
         <h1>REACTJS CSV IMPORT EXAMPLE </h1>
-        <form className={styles.form} onSubmit={handleOnSubmit}>
+        <form className={styles.form}>
           <input
             id={"csvFileInput"}
             type={"file"}
             accept={".csv"}
             onChange={handleOnChange}
           />
-          <button type="submit">IMPORT CSV</button>
-          <button onClick={exportCsv}> Export </button>
+          <button onClick={(e) => handleOnSubmit(e)}>IMPORT CSV</button>
+          <span onClick={exportCsv}> Export </span>
+          <br></br>
         </form>
 
         <section className={styles.tableHold}>

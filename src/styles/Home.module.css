@@ -4,8 +4,17 @@
   font-weight: bolder;
   border: 4px solid;
   border-radius: 6px 6px;
+  margin-right: 20px;
 }
 
+.form span {
+  border-radius: 5px 5px;
+  padding: 0px 6px;
+  background-color: #910b50;
+  font-weight: bolder;
+  color: white;
+  border: 3px solid;
+}
 .selectText {
   border-collapse: collapse;
   color: white;
