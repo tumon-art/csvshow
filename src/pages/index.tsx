@@ -3,7 +3,8 @@ import Head from "next/head";
 import React from "react";
 import toast from "react-hot-toast";
 import styles from "../styles/Home.module.css";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
+
 interface ArrayType {
   nisn: string;
   nama: string;
@@ -92,7 +93,9 @@ const Home: NextPage = () => {
 
           {array && (
             <span>
-              <CSVLink data={array}>Export</CSVLink>
+              <CSVLink target="_blank" data={array} enclosingCharacter={``}>
+                Export
+              </CSVLink>
             </span>
           )}
 
