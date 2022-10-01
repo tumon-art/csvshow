@@ -7,6 +7,10 @@
   margin-right: 20px;
 }
 
+.form {
+  overflow: auto;
+}
+
 .form span {
   border-radius: 5px 5px;
   padding: 0px 6px;
@@ -71,4 +75,9 @@
   align-items: center;
   transition: opacity 0.4s;
   cursor: pointer;
+}
+
+.svg {
+  height: 10px;
+  width: 10px;
 }

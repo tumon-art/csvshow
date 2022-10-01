@@ -71,7 +71,10 @@ const Home: NextPage = () => {
   let headerKeys: [] | any;
   if (array) headerKeys = Object.keys(Object.assign({}, ...array));
 
-  console.log(array);
+  // --- CLICKED FIELD ---
+  const clickedFeild = (arr: ArrayType, val: string) => {
+    console.log(arr, val);
+  };
   return (
     <div>
       <Head>
@@ -116,7 +119,10 @@ const Home: NextPage = () => {
                 {array.map((item: ArrayType) => (
                   <tr key={item.nisn}>
                     {Object.values(item).map((val: string | any, i: any) => (
-                      <td key={i}> {val} </td>
+                      <td onClick={() => clickedFeild(item, val)} key={i}>
+                        {" "}
+                        {val}{" "}
+                      </td>
                     ))}
                     <span
                       onClick={() => onDelete(item.nisn)}
