@@ -17,6 +17,8 @@ interface ArrayType {
 const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
   const [array, setArray] = React.useState<ArrayType[] | any>();
+  const [nisn, setNisn] = React.useState<string>("");
+  const [value, setValue] = React.useState<string>("");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
@@ -72,8 +74,25 @@ const Home: NextPage = () => {
   if (array) headerKeys = Object.keys(Object.assign({}, ...array));
 
   // --- CLICKED FIELD ---
-  const clickedFeild = (arr: ArrayType, val: string) => {
-    console.log(arr, val);
+  const clickedFeild = (nisn: string, val: string) => {
+    setNisn(nisn);
+    setValue(val);
+  };
+
+  // --- INPUT ON-CHANGE ---
+  const onInputChange = (e: HTMLInputElement, nisn: string, val: string) => {
+    const newArray = array;
+    const filterd = array.filter((each: ArrayType) => nisn == each.nisn);
+    const fil = () => {
+      for (let i = 0; i < array.length; i++) {
+        Object.keys(array[i]).find((key) => {
+          console.log(array[i].key);
+
+          console.log(array[key] == val);
+        });
+      }
+    };
+    console.log(fil());
   };
   return (
     <div>
@@ -119,9 +138,15 @@ const Home: NextPage = () => {
                 {array.map((item: ArrayType) => (
                   <tr key={item.nisn}>
                     {Object.values(item).map((val: string | any, i: any) => (
-                      <td onClick={() => clickedFeild(item, val)} key={i}>
-                        {" "}
-                        {val}{" "}
+                      <td onClick={() => clickedFeild(item.nisn, val)} key={i}>
+                        {nisn == item.nisn && val == value ? (
+                          <input
+                            type="text"
+                            onChange={(e) => onInputChange(e, item.nisn, val)}
+                          />
+                        ) : (
+                          val
+                        )}
                       </td>
                     ))}
                     <span
