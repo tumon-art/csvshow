@@ -1,3 +1,4 @@
+// Make ID, not ChangeAble
 import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
@@ -14,6 +15,7 @@ interface ArrayType {
   telepon: string;
   ketgan: string;
 }
+
 const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
   const [array, setArray] = React.useState<ArrayType[] | any>();
@@ -80,20 +82,34 @@ const Home: NextPage = () => {
   };
 
   // --- INPUT ON-CHANGE ---
-  const onInputChange = (e: HTMLInputElement, nisn: string, val: string) => {
+  let objKey: any;
+
+  const onInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    nisn: string,
+    val: string
+  ) => {
     const newArray = array;
     const filterd = array.filter((each: ArrayType) => nisn == each.nisn);
-    const fil = () => {
-      for (let i = 0; i < array.length; i++) {
-        Object.keys(array[i]).find((key) => {
-          console.log(array[i].key);
+    const index = array.findIndex((each: ArrayType) => nisn == each.nisn);
 
-          console.log(array[key] == val);
-        });
-      }
-    };
-    console.log(fil());
+    // --- FIND KEY ---
+    Object.keys(filterd[0]).find((key) => {
+      const check = filterd[0][key] == val;
+
+      if (check) return (objKey = key);
+    });
+
+    filterd[0][objKey] = e.target.value;
+
+    newArray.splice(index, 1, filterd[0]);
+    setArray(newArray);
+    // console.log(index);
+    // console.log((filterd[0][objKey] = e.target.value));
+    // console.log(objKey);
+    // console.log(filterd);
   };
+
   return (
     <div>
       <Head>
