@@ -129,6 +129,7 @@ const Home: NextPage = () => {
             accept={".csv"}
             onChange={handleOnChange}
           />
+          <br></br>
           <button onClick={(e) => handleOnSubmit(e)}>IMPORT CSV</button>
 
           {array && (
