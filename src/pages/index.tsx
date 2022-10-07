@@ -167,12 +167,20 @@ const Home: NextPage = () => {
                         key={i}
                       >
                         {nisn == item.nisn && val == value ? (
-                          <input
-                            className={styles.input}
-                            type="text"
-                            id="inp"
-                            onChange={(e) => onInputChange(e, item.nisn, val)}
-                          />
+                          <form
+                            className={styles.form1}
+                            onSubmit={() => {
+                              setNisn("");
+                              setValue("");
+                            }}
+                          >
+                            <input
+                              className={styles.input}
+                              id="inp"
+                              type="text"
+                              onChange={(e) => onInputChange(e, item.nisn, val)}
+                            />
+                          </form>
                         ) : (
                           val
                         )}
