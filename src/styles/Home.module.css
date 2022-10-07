@@ -81,3 +81,12 @@
   height: 10px;
   width: 10px;
 }
+
+.input {
+  background-color: #911860;
+  width: 60%;
+  height: 8px;
+  color: white;
+  border: 3px solid #df2193;
+  outline: none;
+}

@@ -16,6 +16,8 @@ interface ArrayType {
   ketgan: string;
 }
 
+const TrMap = (array: ArrayType[]) => {};
+
 const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
   const [array, setArray] = React.useState<ArrayType[] | any>();
@@ -154,10 +156,21 @@ const Home: NextPage = () => {
                 {array.map((item: ArrayType) => (
                   <tr key={item.nisn}>
                     {Object.values(item).map((val: string | any, i: any) => (
-                      <td onClick={() => clickedFeild(item.nisn, val)} key={i}>
+                      <td
+                        onClick={() => {
+                          console.log(item, val, i);
+                          i != 0 && clickedFeild(item.nisn, val);
+                          setTimeout(() => {
+                            document.getElementById("inp")?.focus();
+                          }, 0);
+                        }}
+                        key={i}
+                      >
                         {nisn == item.nisn && val == value ? (
                           <input
+                            className={styles.input}
                             type="text"
+                            id="inp"
                             onChange={(e) => onInputChange(e, item.nisn, val)}
                           />
                         ) : (
