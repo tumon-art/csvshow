@@ -16,8 +16,6 @@ interface ArrayType {
   ketgan: string;
 }
 
-const TrMap = (array: ArrayType[]) => {};
-
 const Home: NextPage = () => {
   const [file, setFile] = React.useState<Blob>({} as Blob);
   const [array, setArray] = React.useState<ArrayType[] | any>();
@@ -61,7 +59,7 @@ const Home: NextPage = () => {
       return toast.error("Select The CSV File!");
     }
 
-    // --- READ CSV FILE
+    // --- READ CSV FILE ---
     const fileReader = new FileReader();
     fileReader.readAsText(file);
 
@@ -106,10 +104,6 @@ const Home: NextPage = () => {
 
     newArray.splice(index, 1, filterd[0]);
     setArray(newArray);
-    // console.log(index);
-    // console.log((filterd[0][objKey] = e.target.value));
-    // console.log(objKey);
-    // console.log(filterd);
   };
 
   return (
