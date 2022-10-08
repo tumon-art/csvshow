@@ -1,7 +1,7 @@
 // Make ID, not ChangeAble
 import type { NextPage } from "next";
 import Head from "next/head";
-import React, { ChangeEvent, LegacyRef } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import styles from "../styles/Home.module.css";
 import { CSVLink } from "react-csv";
@@ -31,8 +31,6 @@ const Home: NextPage = () => {
   }, []);
 
   const handleClickOutSide = (e: MouseEvent | any) => {
-    console.log("handle");
-
     if (!refOne.current?.contains(e.target)) {
       setNisn("");
       setValue("");
