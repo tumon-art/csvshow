@@ -1,7 +1,7 @@
 // Make ID, not ChangeAble
 import type { NextPage } from "next";
 import Head from "next/head";
-import React from "react";
+import React, { ChangeEvent, LegacyRef } from "react";
 import toast from "react-hot-toast";
 import styles from "../styles/Home.module.css";
 import { CSVLink } from "react-csv";
@@ -21,6 +21,23 @@ const Home: NextPage = () => {
   const [array, setArray] = React.useState<ArrayType[] | any>();
   const [nisn, setNisn] = React.useState<string>("");
   const [value, setValue] = React.useState<string>("");
+
+  // --- REF ---
+  const refOne = React.useRef<HTMLInputElement>(null);
+
+  // --- Detect OutSide Click ---
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutSide, true);
+  }, []);
+
+  const handleClickOutSide = (e: MouseEvent | any) => {
+    console.log("handle");
+
+    if (!refOne.current?.contains(e.target)) {
+      setNisn("");
+      setValue("");
+    }
+  };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
@@ -153,7 +170,6 @@ const Home: NextPage = () => {
                     {Object.values(item).map((val: string | any, i: any) => (
                       <td
                         onClick={() => {
-                          console.log(item, val, i);
                           i != 0 && clickedFeild(item.nisn, val);
                           setTimeout(() => {
                             document.getElementById("inp")?.focus();
@@ -173,6 +189,7 @@ const Home: NextPage = () => {
                               className={styles.input}
                               id="inp"
                               type="text"
+                              ref={refOne}
                               onChange={(e) => onInputChange(e, item.nisn, val)}
                             />
                           </form>
