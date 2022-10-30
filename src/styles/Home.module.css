@@ -41,6 +41,7 @@
   /* border: 20px solid #d31d6942; */
   background: #911860;
   box-shadow: 0 0 420px 20px #eb1b71;
+  table-layout: fixed;
 }
 
 .table th {
@@ -54,6 +55,7 @@
 
 .table tr:nth-child(even) {
   background-color: #991a66;
+  height: 60px;
 }
 
 .table tbody tr {
@@ -65,7 +67,8 @@
 }
 
 .table td {
-  width: 100%;
+  width: 100px;
+  overflow: hidden;
   height: 100%;
 }
 
@@ -94,6 +97,8 @@
 .input {
   background-color: #5e1a42;
   color: white;
-  outline: 3px solid #df2193;
+  padding: 2px 1px;
+  outline: none;
   border: none;
+  width: 100%;
 }
