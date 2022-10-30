@@ -55,10 +55,10 @@
 
 .table tr:nth-child(even) {
   background-color: #991a66;
-  height: 60px;
 }
 
 .table tbody tr {
+  height: 60px;
   position: relative;
 }
 
@@ -77,9 +77,8 @@
   position: absolute;
   content: "Hello";
   background: #d31d6942;
-  height: 40px;
+  height: 60px;
   width: 40px;
-  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
