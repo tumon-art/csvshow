@@ -1,3 +1,6 @@
+.container {
+  text-align: center;
+}
 .form button {
   background: darkmagenta;
   color: white;

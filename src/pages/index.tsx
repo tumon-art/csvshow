@@ -129,9 +129,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div style={{ textAlign: "center" }}>
-        <h1>REACTJS CSV IMPORT EXAMPLE </h1>
+      <div className={styles.container}>
         <form className={styles.form}>
+          <h1>CSV EDITOR</h1>
           <input
             id={"csvFileInput"}
             type={"file"}
